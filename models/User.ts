@@ -40,8 +40,6 @@ export const User = sequelize.define('User', {
     }
 }, {
     defaultScope: {
-        attributes: {
-            exclude: ['password']
-        }
+        attributes: { exclude: ['password'] }
     }
 })

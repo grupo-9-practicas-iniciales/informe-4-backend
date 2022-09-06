@@ -17,7 +17,7 @@ export interface UserType {
     email: string;
     idStudent: string;
     idUser: Number;
-    password: string;
-    recoveryToken: string;
+    password?: string;
+    recoveryToken?: string;
 }
 
