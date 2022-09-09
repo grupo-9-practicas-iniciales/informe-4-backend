@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import { check } from 'express-validator';
-import { authLogin, getRecoveryEmail } from '../controller';
+import { authLogin, getRecoveryEmail, revalidateToken } from '../controller';
 import { validateFields } from '../middlewares/validate-fields';
+import { validateJWT } from '../middlewares/validate-jwt';
 
 const router = Router();
 
@@ -11,6 +12,8 @@ router.post('/', [
     check('password', 'El password es obligatorio').not().isEmpty(),
     validateFields
 ], authLogin)
+
+router.post('/revalidate', [validateJWT, validateFields], revalidateToken)
 
 router.get('/recovery', [
     check('email', 'El email es obligatorio').isEmail(),

@@ -6,6 +6,7 @@ export * from './user/updateUserById'
 // * Auth
 export * from './auth/authLogin'
 export * from './auth/getRecoveryEmail'
+export * from './auth/revalidateToken'
 
 // * Courses
 export * from './course/getAprovedCoursesByUserId'
