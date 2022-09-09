@@ -11,6 +11,7 @@ import authRoutes from '../routes/auth'
 import courseRoutes from '../routes/courses'
 import postRoutes from '../routes/post'
 import commentRoutes from '../routes/comment'
+import searchRoutes from '../routes/search'
 
 // * Models
 import {
@@ -90,6 +91,7 @@ class Server {
         this.app.use(this.apiPaths.auth, authRoutes);
         this.app.use(this.apiPaths.post, postRoutes);
         this.app.use(this.apiPaths.comment, commentRoutes);
+        this.app.use(this.apiPaths.search, searchRoutes);
     }
 
 

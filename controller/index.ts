@@ -17,3 +17,6 @@ export * from './post/createPost'
 // * Comment
 export * from './comment/createComment'
 export * from './comment/getCommentsByIdPost'
+
+// * Search
+export * from './search/handleSearch'

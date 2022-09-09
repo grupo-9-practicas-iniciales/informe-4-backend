@@ -1,0 +1,5 @@
+export * from './getLatestsPosts'
+export * from './getPostsByIdSection'
+export * from './getUserByIdStudent'
+export * from './getTeachersAndSectionsByName'
+export * from './getCoursesAndSectionsByName'
