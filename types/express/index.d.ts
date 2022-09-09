@@ -1,10 +1,10 @@
 import express from "express";
-import { UserType } from "../../interfaces/types";
+import { UserInterface } from "../../interfaces/interfaces";
 
 declare global {
     namespace Express {
         interface Request {
-            user?: UserType
+            user?: UserInterface
         }
     }
 }

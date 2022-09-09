@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from 'jsonwebtoken';
 import { User } from "../models";
-import { UserType } from '../interfaces/types';
+import { UserInterface } from '../interfaces/interfaces';
 
 
 export const validateJWT = async (req: Request, res: Response, next: NextFunction) => {
@@ -28,7 +28,7 @@ export const validateJWT = async (req: Request, res: Response, next: NextFunctio
             where: {
                 idStudent: Number(idStudent)
             }
-        }) as UserType | null
+        }) as UserInterface | null
 
         if (!user) {
             return res.status(401).json({

@@ -1,5 +1,7 @@
 import { DataTypes } from 'sequelize'
 import sequelize from '../db/config';
+import { Section } from './Section';
+import { User } from './User';
 
 export const Post = sequelize.define('Post', {
     idPost: {
@@ -12,3 +14,9 @@ export const Post = sequelize.define('Post', {
         allowNull: false
     }
 })
+
+// * Foreign key idSection in Post
+Section.hasMany(Post, { as: 'relatedSection', foreignKey: 'idSection' });
+
+// * Feorign key idUser in Post
+User.hasMany(Post, { as: 'relatedUser', foreignKey: 'idUser' });

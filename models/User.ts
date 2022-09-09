@@ -1,10 +1,6 @@
 import { DataTypes } from 'sequelize'
 import sequelize from "../db/config";
 
-console.log('me ejecute')
-
-
-
 export const User = sequelize.define('User', {
     idUser: {
         type: DataTypes.INTEGER,
@@ -37,9 +33,5 @@ export const User = sequelize.define('User', {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true
-    }
-}, {
-    defaultScope: {
-        attributes: { exclude: ['password'] }
     }
 })

@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { check } from 'express-validator'
 import { validateFields } from '../middlewares/validate-fields';
-import { createUser, updateUser, addAprovedCourse, getAprovedCourses } from '../controller';
+import { createUser, updateUser, addAprovedCourses } from '../controller';
 import { validateJWT } from '../middlewares';
 
 const router = Router();
@@ -21,14 +21,15 @@ router.post('/create', [
 // * Update user
 router.put('/update', [validateJWT, validateFields], updateUser)
 
+
 // * Add aproved course
 router.post('/aprovedCourse', [
     validateJWT,
     check('coursesIds', 'Se debe proporcionar una lista de cursos').isArray(),
     validateFields
-], addAprovedCourse)
+], addAprovedCourses)
 
-// * Aproved courses
-router.get('/aprovedCourse/:idUser', getAprovedCourses)
+// // * Aproved courses
+// router.get('/aprovedCourse/:idUser', getAprovedCourses)
 
 export default router;
