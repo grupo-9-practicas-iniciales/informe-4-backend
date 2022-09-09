@@ -1,9 +1,10 @@
+
 import { Request, Response } from "express";
-import { User } from "../models";
 import { Op } from 'sequelize'
 import bcryptjs from 'bcryptjs'
-import { generateJWT } from '../utils/generate-jwt';
-import { UserType } from '../interfaces/types';
+import { User } from "../../models";
+import { generateJWT } from "../../utils/generate-jwt";
+import { UserInterface } from "../../interfaces/interfaces";
 
 export const createUser = async (req: Request, res: Response) => {
 
@@ -15,7 +16,12 @@ export const createUser = async (req: Request, res: Response) => {
     if (usuario) {
         return res.status(400).json({
             ok: false,
-            errorMsg: 'Usuario registrado previamente'
+            msg: 'Error en la creación de usuario',
+            errors: [
+                {
+                    msg: 'El registro academico o el email ya se encuentra registrados'
+                }
+            ]
         })
     }
 
@@ -23,7 +29,12 @@ export const createUser = async (req: Request, res: Response) => {
     if (password != password2) {
         return res.status(400).json({
             ok: false,
-            errorMsg: 'Contraseñas no coinciden'
+            msg: 'Error en la creación de usuario',
+            errors: [
+                {
+                    msg: 'Las contraseñas no coinciden'
+                }
+            ]
         })
     }
 
@@ -37,16 +48,24 @@ export const createUser = async (req: Request, res: Response) => {
         email,
         recoveryToken: null,
         idStudent
-    }) as unknown as UserType
+    }) as any
+
 
     const token = await generateJWT(newUser.idStudent)
 
-    const { password: p, ...user } = newUser
+    const user: UserInterface = {
+        idUser: newUser.idUser,
+        idStudent: newUser.idStudent,
+        names: newUser.names,
+        lastnames: newUser.lastnames,
+        email: newUser.email,
+    }
 
     return res.status(200).json({
         ok: true,
-        user: newUser,
-        token: token
+        user: user,
+        token: token,
+        errors: []
     })
 
 }

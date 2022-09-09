@@ -13,21 +13,21 @@ git clone https://github.com/grupo-9-practicas-iniciales/informe-4-backend.git
 Vamos a trabajar con npm, por lo que el siguiente paso es instalar las dependencias
 
 ```bash
-> npm install
+npm install
 ```
 
 Despues de eso puedes correr la aplicación con:
 
 ```bash
-> npm run dev
+npm run dev
 ```
 
 Al estar utilizando typescript tambien es posible compilar los archivos 
 
 
 ```bash
-> npm run build
-> npm run start
+npm run build
+npm run start
 ```
 
 ### Variables de entorno
@@ -63,6 +63,11 @@ adicionalmente se utilizan algunos paquetes para el desarollo:
     - Login
     - Revalidación de tokens
     - Recuperación de contraseña
+
+- Search
+    - Post por curso
+    - Post por catedratico
+    - Usuario 
 
 - Post 
     - Crear Post <- (manejo de catedráticos y cursos relacionados)

@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from 'jsonwebtoken';
 import { User } from "../models";
-import { UserType } from '../interfaces/types';
+import { UserInterface } from '../interfaces/interfaces';
 
 
 export const validateJWT = async (req: Request, res: Response, next: NextFunction) => {
@@ -11,7 +11,12 @@ export const validateJWT = async (req: Request, res: Response, next: NextFunctio
     if (!token) {
         return res.status(401).json({
             ok: false,
-            errorMsg: 'No tiene autorizacion'
+            msg: 'No tiene autorizacion para realizar esta accion',
+            errors: [
+                {
+                    msg: 'Falta el token de autenticacion'
+                }
+            ]
         })
     }
 
@@ -23,22 +28,38 @@ export const validateJWT = async (req: Request, res: Response, next: NextFunctio
             where: {
                 idStudent: Number(idStudent)
             }
-        }) as UserType | null
+        }) as UserInterface | null
 
         if (!user) {
             return res.status(401).json({
                 ok: false,
-                errorMsg: 'No existe usuario'
+                msg: 'No existe usuario para este token',
+                errors: [
+                    {
+                        msg: 'Token no valido'
+                    }
+                ]
             })
         }
 
-        req.user = user
-        next()
 
+        req.user = {
+            idUser: user.idUser,
+            idStudent: user.idStudent,
+            names: user.names,
+            lastnames: user.lastnames,
+            email: user.email,
+        }
+        next()
     } catch (error) {
         console.log(error);
         res.status(401).json({
-            msg: 'Token no valido'
+            msg: 'Token no valido',
+            errors: [
+                {
+                    msg: 'Token no valido'
+                }
+            ]
         })
     }
 

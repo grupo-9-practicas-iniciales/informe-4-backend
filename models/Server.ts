@@ -1,15 +1,28 @@
 // Packages imports
 import express, { Application } from 'express'
 import cors from 'cors'
+
+// * DB
 import sequelize from '../db/config';
+
+// * Routes
 import userRoutes from '../routes/user'
+import authRoutes from '../routes/auth'
+import courseRoutes from '../routes/courses'
+import postRoutes from '../routes/post'
+import commentRoutes from '../routes/comment'
+import searchRoutes from '../routes/search'
 
+// * Models
 import {
-    User, Course, UserAprovedCourse, Teacher, CourseSection,
-    Post, PostHasTeacher, CourseHasPost, Comment
+    User,
+    Course,
+    Teacher,
+    Section,
+    Post,
+    Comment,
+    AprovedCourse
 } from './'
-
-// Routes imports
 
 
 class Server {
@@ -21,6 +34,8 @@ class Server {
         user: '/api/user',
         post: '/api/post',
         search: '/api/search',
+        courses: '/api/course',
+        comment: '/api/comment',
     }
 
     constructor() {
@@ -42,15 +57,16 @@ class Server {
             console.log('Connected to DB')
 
             // ! Creates tables
-            // User.sync({ force: true })
-            // Course.sync({ force: true })
-            // UserAprovedCourse.sync({ force: true })
-            // Teacher.sync({ force: true })
-            // CourseSection.sync({ force: true })
-            // Post.sync({ force: true })
-            // PostHasTeacher.sync({ force: true })
-            // CourseHasPost.sync({ force: true })
-            // Comment.sync({ force: true })
+
+            // await User.sync({ force: true })
+            // await Course.sync({ force: true })
+            // await AprovedCourse.sync({ force: true })
+            // await Teacher.sync({ force: true })
+            // await Section.sync({ force: true })
+            // await Post.sync({ force: true })
+            // await Comment.sync({ force: true })
+
+            // console.log('Associatons created')
 
             // TODO: Seed Course and Teacher
 
@@ -71,6 +87,11 @@ class Server {
 
     routes() {
         this.app.use(this.apiPaths.user, userRoutes);
+        this.app.use(this.apiPaths.courses, courseRoutes);
+        this.app.use(this.apiPaths.auth, authRoutes);
+        this.app.use(this.apiPaths.post, postRoutes);
+        this.app.use(this.apiPaths.comment, commentRoutes);
+        this.app.use(this.apiPaths.search, searchRoutes);
     }
 
 

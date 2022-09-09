@@ -8,8 +8,8 @@ export const validateFields = (req: Request, res: Response, next: NextFunction) 
     if (!errors.isEmpty()) {
         return res.status(400).json({
             ok: false,
-            errorMsg: 'Faltan campos requeridos',
-            errors
+            msg: 'Faltan campos requeridos',
+            ...errors
         })
 
     }
