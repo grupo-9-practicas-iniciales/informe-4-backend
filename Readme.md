@@ -52,26 +52,9 @@ adicionalmente se utilizan algunos paquetes para el desarollo:
 - ts-node
 - typescript
 
-## Se tienen que desarrollar los siguientes endpoints
+## Endpoints
 
-- Usuario
-    - Crear usuario
-    - Actualizar usuario
-    - Añadir curso aprobado
-
-- Auth
-    - Login
-    - Revalidación de tokens
-    - Recuperación de contraseña
-
-- Search
-    - Post por curso
-    - Post por catedratico
-    - Usuario 
-
-- Post 
-    - Crear Post <- (manejo de catedráticos y cursos relacionados)
-    - Crear comentarios
+Puedes revisar la documentación en [Postman](https://documenter.getpostman.com/view/19336675/VVJ3zvmc)
 
 
 ## Convenciones
