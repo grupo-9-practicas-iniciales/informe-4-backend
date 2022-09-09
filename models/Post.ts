@@ -21,6 +21,9 @@ export const Post = sequelize.define('Post', {
 
 // * Foreign key idSection in Post
 Section.hasMany(Post, { as: 'relatedSection', foreignKey: 'idSection' });
+Post.belongsTo(Section, { foreignKey: 'idSection' });
 
 // * Feorign key idUser in Post
 User.hasMany(Post, { as: 'relatedUser', foreignKey: 'idUser' });
+Post.belongsTo(User, { foreignKey: 'idUser' });
+

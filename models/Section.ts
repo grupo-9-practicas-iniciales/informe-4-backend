@@ -17,9 +17,11 @@ export const Section = sequelize.define('Section', {
 
 // * Foreign key idCourse in Section
 Course.hasMany(Section, { as: 'sections', foreignKey: 'idCourse' });
+Section.hasMany(Course, { foreignKey: 'idCourse' });
 
 // * Foreign key idTeacher in Section
 Teacher.hasMany(Section, { as: 'sections', foreignKey: 'idTeacher' });
+Section.hasMany(Teacher, { foreignKey: 'idTeacher' });
 
 
 
