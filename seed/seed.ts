@@ -35,6 +35,14 @@ export const seed = async () => {
                     credits: course.credits
                 }) as unknown as CourseInterface;
 
+                // Create 'todas las secciones'
+
+                await Section.create({
+                    section: 'Todas las secciones',
+                    idCourse: createdCourse.idCourse,
+                    idTeacher: null
+                })
+
                 // Update the section with the id of the course
                 sections.forEach(section => {
                     if (section.idCourse == course.id) {
@@ -59,6 +67,14 @@ export const seed = async () => {
                     idTeacher: teacher.id,
                     name: teacher.name,
                 }) as unknown as TeacherInterface;
+
+                // Create 'todas los cursos'
+
+                await Section.create({
+                    section: 'Todos los cursos',
+                    idTeacher: createdTeacher.idTeacher,
+                    idCourse: null
+                })
 
                 // Update the section with the id of the teacher
                 sections.forEach(section => {

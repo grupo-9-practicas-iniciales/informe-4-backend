@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize'
 import sequelize from '../db/config';
-import { Post } from './';
+import { Post, User } from './';
 
 
 export const Comment = sequelize.define('Comment', {
@@ -16,4 +16,7 @@ export const Comment = sequelize.define('Comment', {
 
 
 // * Foreign key idPost in Comment
-Post.hasMany(Comment, { as: 'relatedPost', foreignKey: 'idPost' });
+Post.hasMany(Comment, { foreignKey: 'idPost' });
+
+User.hasMany(Comment, { foreignKey: 'idUser' });
+Comment.belongsTo(User, { foreignKey: 'idUser' });

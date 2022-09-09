@@ -1,11 +1,18 @@
 // Packages imports
 import express, { Application } from 'express'
 import cors from 'cors'
+
+// * DB
 import sequelize from '../db/config';
+
+// * Routes
 import userRoutes from '../routes/user'
 import authRoutes from '../routes/auth'
 import courseRoutes from '../routes/courses'
+import postRoutes from '../routes/post'
+import commentRoutes from '../routes/comment'
 
+// * Models
 import {
     User,
     Course,
@@ -15,8 +22,6 @@ import {
     Comment,
     AprovedCourse
 } from './'
-
-// Routes imports
 
 
 class Server {
@@ -29,6 +34,7 @@ class Server {
         post: '/api/post',
         search: '/api/search',
         courses: '/api/course',
+        comment: '/api/comment',
     }
 
     constructor() {
@@ -82,6 +88,8 @@ class Server {
         this.app.use(this.apiPaths.user, userRoutes);
         this.app.use(this.apiPaths.courses, courseRoutes);
         this.app.use(this.apiPaths.auth, authRoutes);
+        this.app.use(this.apiPaths.post, postRoutes);
+        this.app.use(this.apiPaths.comment, commentRoutes);
     }
 
 

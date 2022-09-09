@@ -9,7 +9,11 @@ export const Post = sequelize.define('Post', {
         primaryKey: true,
         autoIncrement: true
     },
-    message: {
+    title: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    description: {
         type: DataTypes.TEXT,
         allowNull: false
     }

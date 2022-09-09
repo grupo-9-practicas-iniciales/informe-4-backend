@@ -13,8 +13,8 @@ export interface PostInterface {
     description: string;
     createdAt: Date;
     user: UserInterface;
-    courses: CourseInterface[];
-    teachers: TeacherInterface[];
+    relatedCourse: any;
+    relatedTeacher: any;
 }
 
 export interface CommentInterface {
@@ -22,7 +22,11 @@ export interface CommentInterface {
     idComment: number;
     message: string;
     createdAt: Date;
-    user: UserInterface;
+    user: {
+        idUser: number;
+        names: string;
+        lastnames: string;
+    };
 
 }
 
@@ -33,7 +37,6 @@ export interface CourseInterface {
     name: string;
     code: string;
     credits: number;
-    sections?: CourseSectionInterface[];
 
 }
 
@@ -46,7 +49,6 @@ export interface TeacherInterface {
 
 export interface CourseSectionInterface {
     section: string;
-    teacher: TeacherInterface;
 }
 
 
