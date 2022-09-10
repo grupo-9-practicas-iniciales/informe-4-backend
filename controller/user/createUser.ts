@@ -65,6 +65,7 @@ export const createUser = async (req: Request, res: Response) => {
         ok: true,
         user: user,
         token: token,
+        msg: 'Usuario creado correctamente',
         errors: []
     })
 
