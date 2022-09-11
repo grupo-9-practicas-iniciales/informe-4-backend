@@ -18,6 +18,14 @@ export const getTeachersAndSectionsByName = async (req: Request, res: Response, 
         }]
     }) as any;
 
+    if (teachers.length === 0) {
+        return res.status(404).json({
+            ok: false,
+            msg: 'No se encontraron profesores',
+            errors: []
+        })
+    }
+
     const formatedTeachers: TeacherInterface[] = await Promise.all(
         teachers.map(async (teacher: any) => {
 

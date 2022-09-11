@@ -25,6 +25,14 @@ export const getPostsByIdSection = async (req: Request, res: Response, idSection
         }
     }) as any
 
+    if (posts.length === 0) {
+        return res.status(404).json({
+            ok: false,
+            msg: 'No hay publicaciones',
+            errors: []
+        })
+    }
+
     const formatedPosts: PostInterface[] = await Promise.all(
         posts.map(async (post: any) => {
 

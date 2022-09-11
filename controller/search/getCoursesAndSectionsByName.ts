@@ -17,6 +17,15 @@ export const getCoursesAndSectionsByName = async (req: Request, res: Response, n
         }]
     }) as any;
 
+    if (courses.length === 0) {
+        return res.status(404).json({
+            ok: false,
+            msg: 'No se encontraron cursos',
+            errors: []
+
+        })
+    }
+
     const formatedCourses: CourseInterface[] = await Promise.all(
         courses.map(async (course: any) => {
 

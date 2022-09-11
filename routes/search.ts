@@ -5,7 +5,7 @@ import { validateFields } from '../middlewares/validate-fields';
 
 const router = Router();
 
-router.get('/', [
+router.post('/', [
     validateJWT,
     validateFields
 ], handleSearch);
