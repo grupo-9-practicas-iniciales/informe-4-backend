@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { check } from 'express-validator';
-import { authLogin, getRecoveryEmail, revalidateToken } from '../controller';
+import { authLogin, getRecoveryEmail, revalidateToken, validateRecoveryToken } from '../controller';
 import { validateFields } from '../middlewares/validate-fields';
 import { validateJWT } from '../middlewares/validate-jwt';
 
@@ -15,9 +15,15 @@ router.post('/', [
 
 router.post('/revalidate', [validateJWT, validateFields], revalidateToken)
 
-router.get('/recovery', [
+router.post('/recovery/token', [
+    check('token', 'El token es obligatorio').not().isEmpty(),
+    validateFields
+], validateRecoveryToken)
+
+router.post('/recovery', [
     check('email', 'El email es obligatorio').isEmail(),
     validateFields
 ], getRecoveryEmail)
+
 
 export default router;

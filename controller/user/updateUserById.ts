@@ -29,7 +29,7 @@ export const updateUser = async (req: Request, res: Response) => {
             })
         }
 
-        await User.update(fields, {
+        await User.update({ ...fields, recoveryToken: null }, {
             where: {
                 idStudent: req.user?.idStudent
             }

@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import transporter from "../../email/config";
-import { UserInterface } from "../../interfaces/interfaces";
 import { User } from "../../models";
-import { generateJWT } from "../../utils/generate-jwt";
+import { v4 as uuidv4 } from 'uuid';
+
 
 
 export const getRecoveryEmail = async (req: Request, res: Response) => {
@@ -11,7 +11,7 @@ export const getRecoveryEmail = async (req: Request, res: Response) => {
 
         const { email } = req.body;
 
-        const posibleUser = await User.findOne({ where: { email } }) as unknown as UserInterface
+        const posibleUser = await User.findOne({ where: { email } }) as any
 
         if (!posibleUser) {
             return res.status(400).json({
@@ -26,11 +26,14 @@ export const getRecoveryEmail = async (req: Request, res: Response) => {
             })
         }
 
-        const token = await generateJWT(posibleUser.idStudent);
-
+        const token = uuidv4();
 
         try {
 
+            posibleUser.recoveryToken = token;
+            await posibleUser.save();
+
+            const recoveryUrl = `${process.env.APP_URL}/recovery/${token}`;
             await transporter.sendMail({
                 from: `"Recuperación de contraseña - YOUSACAPP" < ${process.env.SENDER_EMAIL} >`,
                 to: posibleUser.email,
@@ -38,8 +41,8 @@ export const getRecoveryEmail = async (req: Request, res: Response) => {
                 html: `
                     <h1>Recuperación de contraseña - YOUSACAPP</h1>
                     <p>Para recuperar tu contraseña, haz click en el siguiente enlace</p>
-                    <a href="${process.env.APP_URL}/recovery/${token}">Recuperar contraseña</a>
-                `
+                    <a href="${recoveryUrl}">Recuperar contraseña</a>
+                        `
             })
 
             return res.status(200).json({
