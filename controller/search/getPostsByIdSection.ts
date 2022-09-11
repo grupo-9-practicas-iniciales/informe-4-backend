@@ -4,26 +4,7 @@ import { Course, Post, Section, Teacher, User } from "../../models";
 
 export const getPostsByIdSection = async (req: Request, res: Response, idSection: any) => {
 
-    const posts = await Post.findAll({
-        include: [{
-            model: User,
-            attributes: ['idUser', 'names', 'lastnames']
-        },
-        {
-            model: Section,
-            include: [{
-                model: Teacher,
-            }, {
-                model: Course,
-            }]
-        }],
-        order: [
-            ['createdAt', 'DESC']
-        ],
-        where: {
-            idSection
-        }
-    }) as any
+    const posts = await getPosts(idSection);
 
     if (posts.length === 0) {
         return res.status(404).json({
@@ -70,5 +51,91 @@ export const getPostsByIdSection = async (req: Request, res: Response, idSection
         errors: [],
         posts: formatedPosts
     })
+
+}
+
+const getPosts = async (idSection: any) => {
+
+    const section = await Section.findByPk(idSection) as any;
+
+
+    if (!section) {
+        return [];
+    }
+    const idCourse = section.idCourse;
+    const idTeacher = section.idTeacher;
+
+    if (idTeacher && idCourse) {
+        return Post.findAll({
+            include: [{
+                model: User,
+                attributes: ['idUser', 'names', 'lastnames']
+            },
+            {
+                model: Section,
+                include: [{
+                    model: Teacher,
+                }, {
+                    model: Course,
+                }]
+            }],
+            order: [
+                ['createdAt', 'DESC']
+            ],
+            where: {
+                idSection
+            }
+        }) as any
+    }
+
+    if (idTeacher) {
+
+        return Post.findAll({
+            include: [{
+                model: User,
+                attributes: ['idUser', 'names', 'lastnames']
+            },
+            {
+                model: Section,
+                include: [{
+                    model: Teacher,
+
+                }, {
+                    model: Course,
+                }],
+                where: {
+                    idTeacher
+                }
+            }],
+            order: [
+                ['createdAt', 'DESC']
+            ]
+        }) as any
+
+    }
+
+    if (idCourse) {
+        return Post.findAll({
+            include: [{
+                model: User,
+                attributes: ['idUser', 'names', 'lastnames']
+            },
+            {
+                model: Section,
+                include: [{
+                    model: Teacher,
+                }, {
+                    model: Course,
+
+                }],
+                where: {
+                    idCourse
+                }
+            }],
+            order: [
+                ['createdAt', 'DESC']
+            ]
+        }) as any
+    }
 
 }
