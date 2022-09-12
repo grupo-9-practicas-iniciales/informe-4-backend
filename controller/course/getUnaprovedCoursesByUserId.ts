@@ -49,7 +49,7 @@ export const getUnaprovedCoursesByUserId = async (req: Request, res: Response) =
 
         res.status(200).json({
             ok: true,
-            msg: 'Cursos no aprobados',
+            msg: 'Cursos no aprobados cargados',
             errors: [],
             unaprovedCourses: formatedCourses
         })

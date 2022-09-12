@@ -45,7 +45,8 @@ export const getCommentsByIdPost = async (req: Request, res: Response) => {
                 user: {
                     idUser: User.idUser,
                     names: User.names,
-                    lastnames: User.lastnames
+                    lastnames: User.lastnames,
+                    email: User.email
                 }
             }
 
@@ -54,7 +55,7 @@ export const getCommentsByIdPost = async (req: Request, res: Response) => {
 
         return res.status(200).json({
             ok: true,
-            msg: 'Comentarios',
+            msg: 'Comentarios cargados',
             errors: [],
             comments: formatedComments
         })

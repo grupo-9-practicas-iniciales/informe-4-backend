@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { CommentInterface } from "../../interfaces/interfaces";
 import { Comment, Post } from "../../models";
 
 
@@ -23,12 +24,25 @@ export const createComment = async (req: Request, res: Response) => {
             message,
             idUser,
             idPost
-        })
+        }) as any
+
+        const formatComment: CommentInterface = {
+            idComment: comment.idComment,
+            message: comment.message,
+            createdAt: comment.createdAt,
+            user: {
+                idUser: req.user!.idUser,
+                names: req.user!.names,
+                lastnames: req.user!.lastnames,
+                email: req.user!.email
+            }
+        }
 
         return res.status(201).json({
             ok: true,
             msg: 'Comentario creado',
-            errors: []
+            errors: [],
+            comment: formatComment
         })
 
 

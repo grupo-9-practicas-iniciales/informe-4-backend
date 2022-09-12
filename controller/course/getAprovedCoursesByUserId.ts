@@ -40,7 +40,7 @@ export const getAprovedCoursesByUserId = async (req: Request, res: Response) => 
 
         res.status(200).json({
             ok: true,
-            msg: 'Cursos aprobados',
+            msg: 'Cursos aprobados cargados',
             errors: [],
             aprovedCourses: formatedCourses
         })

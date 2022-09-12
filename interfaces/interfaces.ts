@@ -26,6 +26,7 @@ export interface CommentInterface {
         idUser: number;
         names: string;
         lastnames: string;
+        email: string;
     };
 
 }
