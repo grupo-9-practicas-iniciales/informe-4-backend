@@ -33,7 +33,8 @@ export const getPostsByIdSection = async (req: Request, res: Response, idSection
                 user: {
                     idUser: post.User.idUser,
                     names: post.User.names,
-                    lastnames: post.User.lastnames
+                    lastnames: post.User.lastnames,
+                    email: post.User.email
                 },
                 section: {
                     idSection: post.Section.idSection,
@@ -69,7 +70,7 @@ const getPosts = async (idSection: any) => {
         return Post.findAll({
             include: [{
                 model: User,
-                attributes: ['idUser', 'names', 'lastnames']
+                attributes: ['idUser', 'names', 'lastnames', 'email']
             },
             {
                 model: Section,
@@ -93,7 +94,7 @@ const getPosts = async (idSection: any) => {
         return Post.findAll({
             include: [{
                 model: User,
-                attributes: ['idUser', 'names', 'lastnames']
+                attributes: ['idUser', 'names', 'lastnames', 'email']
             },
             {
                 model: Section,
@@ -118,7 +119,7 @@ const getPosts = async (idSection: any) => {
         return Post.findAll({
             include: [{
                 model: User,
-                attributes: ['idUser', 'names', 'lastnames']
+                attributes: ['idUser', 'names', 'lastnames', 'email']
             },
             {
                 model: Section,

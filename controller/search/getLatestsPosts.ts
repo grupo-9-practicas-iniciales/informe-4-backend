@@ -7,7 +7,7 @@ export const getLatestsPosts = async (req: Request, res: Response) => {
     const posts = await Post.findAll({
         include: [{
             model: User,
-            attributes: ['idUser', 'names', 'lastnames']
+            attributes: ['idUser', 'names', 'lastnames', 'email']
         },
         {
             model: Section,
@@ -41,7 +41,8 @@ export const getLatestsPosts = async (req: Request, res: Response) => {
                 user: {
                     idUser: post.User.idUser,
                     names: post.User.names,
-                    lastnames: post.User.lastnames
+                    lastnames: post.User.lastnames,
+                    email: post.User.email
                 },
                 section: {
                     idSection: post.Section.idSection,

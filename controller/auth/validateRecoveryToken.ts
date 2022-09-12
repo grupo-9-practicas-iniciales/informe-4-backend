@@ -20,7 +20,8 @@ export const validateRecoveryToken = async (req: Request, res: Response) => {
                     {
                         msg: 'Token no valido'
                     }
-                ]
+                ],
+                token: null
             })
         }
 
