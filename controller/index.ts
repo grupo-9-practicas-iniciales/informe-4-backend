@@ -3,6 +3,7 @@ export * from './user/addAprovedCourses'
 export * from './user/createUser'
 export * from './user/updateUserById'
 export * from './user/getUserById'
+export * from './user/removeAprovedCourses'
 
 // * Auth
 export * from './auth/authLogin'
