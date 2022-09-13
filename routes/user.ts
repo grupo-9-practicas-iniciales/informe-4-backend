@@ -3,6 +3,7 @@ import { check } from 'express-validator'
 import { validateFields } from '../middlewares/validate-fields';
 import { createUser, updateUser, addAprovedCourses } from '../controller';
 import { validateJWT } from '../middlewares';
+import { getUserById } from '../controller/user/getUserById';
 
 const router = Router();
 
@@ -28,6 +29,8 @@ router.post('/aprovedCourse', [
     check('coursesIds', 'Se debe proporcionar una lista de cursos').isArray(),
     validateFields
 ], addAprovedCourses)
+
+router.get('/:idUser', [validateJWT], getUserById)
 
 // // * Aproved courses
 // router.get('/aprovedCourse/:idUser', getAprovedCourses)
