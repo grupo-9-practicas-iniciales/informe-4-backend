@@ -44,6 +44,7 @@ export const getCommentsByIdPost = async (req: Request, res: Response) => {
                 createdAt,
                 user: {
                     idUser: User.idUser,
+                    idStudent: User.idStudent,
                     names: User.names,
                     lastnames: User.lastnames,
                     email: User.email
