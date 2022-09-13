@@ -11,7 +11,16 @@ export const createPost = async (req: Request, res: Response) => {
         const { idUser } = req.user!;
         const { description, title, idSection } = req.body;
 
-        const posibleSection = await Section.findByPk(idSection);
+        const posibleSection = await Section.findByPk(idSection, {
+            include: [
+                {
+                    model: Course,
+                },
+                {
+                    model: Teacher,
+                }
+            ]
+        }) as any;
 
         if (!posibleSection) {
             return res.status(404).json({
@@ -30,33 +39,8 @@ export const createPost = async (req: Request, res: Response) => {
 
         const relatedUser = await User.findOne({ where: { idUser } }) as unknown as UserInterface;
 
-        const relatedCourse = await Course.findOne({
-
-            include: [
-                {
-                    model: Section,
-                    as: 'sections',
-                    where: {
-                        idSection
-                    },
-                }
-            ]
-        }) as any
-
-        const relatedTeacher = await Teacher.findOne({
-
-            include: [
-                {
-                    model: Section,
-                    as: 'sections',
-                    where: {
-                        idSection
-                    },
-                }
-            ]
-        }) as any
-
-
+        const relatedTecher = await Teacher.findByPk(posibleSection.idTeacher) as any;
+        const relatedCourse = await Course.findByPk(posibleSection.idCourse) as any;
 
         const user: UserInterface = {
             names: relatedUser.names,
@@ -72,8 +56,20 @@ export const createPost = async (req: Request, res: Response) => {
             title: createdPost.title,
             createdAt: createdPost.createdAt,
             user,
-            relatedCourse,
-            relatedTeacher
+            section: {
+                idSection: posibleSection.idSection,
+                section: posibleSection.section,
+                teacher: relatedTecher ? {
+                    idTeacher: relatedTecher.idTeacher,
+                    name: relatedTecher.name
+                } : null,
+                course: relatedCourse ? {
+                    idCourse: relatedCourse.idCourse,
+                    name: relatedCourse.name,
+                    code: relatedCourse.code
+                } : null
+            }
+
         }
 
         res.status(201).json({

@@ -7,8 +7,22 @@ import { User } from "../../models";
 export const updateUser = async (req: Request, res: Response) => {
 
     try {
-        const { idStudent, idUser, password, password2, ...fields } = req.body;
+        const { idStudent, idUser, oldPassword, password, password2, ...fields } = req.body;
         const errors = []
+
+        const userToUpdate = await User.findByPk(req.user?.idUser) as any;
+
+        // * If doesnt have a recovery token 
+        if (userToUpdate.recoveryToken == null) {
+            // * And the old password is not the same as the one in the database
+            if (!bcryptjs.compareSync(oldPassword, userToUpdate.password)) {
+                return res.status(400).json({
+                    ok: false,
+                    msg: 'Contraseña incorrecta',
+                    errors: [],
+                })
+            }
+        }
 
         // ? Update password
         if (password || password2) {
