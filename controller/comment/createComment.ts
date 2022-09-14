@@ -34,7 +34,8 @@ export const createComment = async (req: Request, res: Response) => {
                 idUser: req.user!.idUser,
                 names: req.user!.names,
                 lastnames: req.user!.lastnames,
-                email: req.user!.email
+                email: req.user!.email,
+                idStudent: req.user!.idStudent
             }
         }
 

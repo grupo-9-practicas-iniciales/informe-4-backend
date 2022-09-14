@@ -42,7 +42,8 @@ export const getLatestsPosts = async (req: Request, res: Response) => {
                     idUser: post.User.idUser,
                     names: post.User.names,
                     lastnames: post.User.lastnames,
-                    email: post.User.email
+                    email: post.User.email,
+                    idStudent: post.User.idStudent
                 },
                 section: {
                     idSection: post.Section.idSection,

@@ -7,14 +7,35 @@ export interface UserInterface {
 }
 
 
+// export interface PostInterface {
+//     idPost: number;
+//     title: string;
+//     description: string;
+//     createdAt: Date;
+//     user: UserInterface;
+//     relatedCourse: any;
+//     relatedTeacher: any;
+// }
+
 export interface PostInterface {
     idPost: number;
     title: string;
     description: string;
-    createdAt: Date;
+    createdAt: string;
     user: UserInterface;
-    relatedCourse: any;
-    relatedTeacher: any;
+    section: {
+        idSection: number;
+        section: string;
+        teacher: {
+            idTeacher: number;
+            name: string;
+        } | null;
+        course: {
+            idCourse: number;
+            name: string;
+            code: string;
+        } | null;
+    };
 }
 
 export interface CommentInterface {
@@ -22,12 +43,7 @@ export interface CommentInterface {
     idComment: number;
     message: string;
     createdAt: Date;
-    user: {
-        idUser: number;
-        names: string;
-        lastnames: string;
-        email: string;
-    };
+    user: UserInterface;
 
 }
 

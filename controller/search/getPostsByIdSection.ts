@@ -34,7 +34,8 @@ export const getPostsByIdSection = async (req: Request, res: Response, idSection
                     idUser: post.User.idUser,
                     names: post.User.names,
                     lastnames: post.User.lastnames,
-                    email: post.User.email
+                    email: post.User.email,
+                    idStudent: post.User.idStudent
                 },
                 section: {
                     idSection: post.Section.idSection,
